@@ -1,0 +1,56 @@
+@startchen
+
+entity User {
+  UserID : INTEGER <<key>>
+  Login : STRING
+  Password : STRING
+  FullName {
+    FirstName : STRING
+    LastName : STRING
+    Surname : STRING
+  }
+  Role : INTEGER
+}
+
+entity CinemaSession {
+  SessionID : INTEGER <<key>>
+  FilmID : INTEGER
+  СinemaHallID : INTEGER
+  ShowingTime : DATE
+  SpectatorsCount : INTEGER
+}
+
+entity Film {
+  FilmID : INTEGER <<key>>
+  Name : STRING
+  Duration : REAL
+  GenreID : INTEGER
+  Price : REAL
+}
+
+entity Genre {
+  GenreID : INTEGER <<key>>
+  Name : STRING
+}
+
+entity Ticket {
+  TicketID : INTEGER <<key>>
+  SessionID : INTEGER
+  UserID : INTEGER
+}
+
+entity СinemaHall {
+  СinemaHallID : INTEGER <<key>>
+  Name : STRING
+  Capacity : INTEGER
+  VIPScalingPercent : INTEGER
+}
+
+entity Log {
+  LogID : INTEGER <<key>>
+  UserID : INTEGER
+  ActionTime : DATE
+  Action : STRING
+}
+
+@endchen
