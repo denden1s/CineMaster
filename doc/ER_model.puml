@@ -53,4 +53,45 @@ entity Log {
   Action : STRING
 }
 
+relationship SELL {
+}
+
+relationship SHOW {
+}
+
+relationship WRITE {
+}
+
+relationship LOCATE {
+}
+
+relationship REFERS_TO {
+}
+
+' User sell many tickets
+' Tickets can be sold by one user
+SELL -1- User
+SELL -N- Ticket
+
+' Log was writen by concrete user
+' Many users write log
+WRITE -1- User
+WRITE -N- Log
+
+
+' Film can be showed on many sessions
+' Concrete session show concrete film
+SHOW -1- Film
+SHOW -N- CinemaSession
+
+' Cinema hall can locate many cinema sessions
+' Cinema session locate in concrete hall
+LOCATE -1- СinemaHall 
+LOCATE -N- CinemaSession
+
+' Concrete genre can have many films
+' Film reffers to concrete genre
+REFERS_TO -1- Genre
+REFERS_TO -N- Film
+
 @endchen
