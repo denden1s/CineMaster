@@ -16,8 +16,9 @@ entity User {
 
 entity CinemaSession {
   SessionID : INTEGER <<key>>
+  UserID : INTEGER
   FilmID : INTEGER
-  СinemaHallID : INTEGER
+  CinemaHallID : INTEGER
   ShowingTime : DATE
   SpectatorsCount : INTEGER
 }
@@ -41,8 +42,8 @@ entity Ticket {
   UserID : INTEGER
 }
 
-entity СinemaHall {
-  СinemaHallID : INTEGER <<key>>
+entity CinemaHall {
+  CinemaHallID : INTEGER <<key>>
   Name : STRING
   Capacity : INTEGER
   VIPScalingPercent : INTEGER
@@ -70,6 +71,9 @@ relationship LOCATE {
 relationship REFERS_TO {
 }
 
+relationship LEAD {
+}
+
 ' User sell many tickets
 ' Tickets can be sold by one user
 SELL -1- User
@@ -88,8 +92,13 @@ SHOW -N- CinemaSession
 
 ' Cinema hall can locate many cinema sessions
 ' Cinema session locate in concrete hall
-LOCATE -1- СinemaHall 
+LOCATE -1- CinemaHall 
 LOCATE -N- CinemaSession
+
+' User lead many cinema sessions
+' Cinema sessions can be lead by one user
+LEAD -1- User
+LEAD -N- CinemaSession
 
 ' Concrete genre can have many films
 ' Film reffers to concrete genre

@@ -1,0 +1,86 @@
+@startuml
+
+entity User {
+  UserID : number <<generated>>
+  --
+  Login : text
+  Password : text
+  FirstName : text
+  LastName : text
+  Surname : text
+  Role : number
+}
+
+entity CinemaSession {
+  SessionID : number <<generated>>
+  --
+  UserID : number <<FK>>
+  FilmID : number <<FK>>
+  CinemaHallID : number <<FK>>
+  ShowingTime : date
+  SpectatorsCount : number
+}
+
+entity Film {
+  FilmID : number <<generated>>
+  --
+  Name : text
+  Duration : number
+  GenreID : number <<FK>>
+  Price : real
+}
+
+entity Genre {
+  GenreID : number <<generated>>
+  --
+  Name : text
+}
+
+entity Ticket {
+  TicketID : number <<generated>>
+  --
+  SessionID : number <<FK>>
+  UserID : number <<FK>>
+}
+
+entity CinemaHall {
+  CinemaHallID : number <<generated>>
+  --
+  Name : text
+  Capacity : number
+  VIPScalingPercent : number
+}
+
+entity Log {
+  LogID : number <<generated>>
+  --
+  UserID : number <<FK>>
+  ActionTime : date
+  Action : text
+}
+
+' User sell many tickets
+' Tickets can be sold by one user
+User ||--o{ Ticket : sell
+
+' Log was writen by concrete user
+' Many users write log
+User ||--o{ Log : write
+
+' Film can be showed on many sessions
+' Concrete session show concrete film
+Film ||--o{ CinemaSession : show
+
+' User lead many cinema sessions
+' Cinema sessions can be lead by one user
+User ||--o{ CinemaSession : lead
+
+' Cinema hall can locate many cinema sessions
+' Cinema session locate in concrete hall
+CinemaHall ||--o{ CinemaSession : locate
+
+' Concrete genre can have many films
+' Film reffers to concrete genre
+Genre ||--o{ Film : reffers to
+
+@endtuml
