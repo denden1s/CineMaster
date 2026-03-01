@@ -1,5 +1,7 @@
 @startchen
 
+left to right direction
+
 entity User {
   UserID : INTEGER <<key>>
   Login : STRING
