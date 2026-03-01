@@ -20,13 +20,12 @@ entity CinemaSession {
   FilmID : INTEGER
   CinemaHallID : INTEGER
   ShowingTime : DATE
-  SpectatorsCount : INTEGER
 }
 
 entity Film {
   FilmID : INTEGER <<key>>
   Name : STRING
-  Duration : REAL
+  Duration : INTEGER
   GenreID : INTEGER
   Price : REAL
 }

@@ -18,7 +18,6 @@ entity CinemaSession {
   FilmID : number <<FK>>
   CinemaHallID : number <<FK>>
   ShowingTime : date
-  SpectatorsCount : number
 }
 
 entity Film {
