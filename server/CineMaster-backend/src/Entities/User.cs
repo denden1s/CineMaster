@@ -1,4 +1,4 @@
-using System;
+using CineMaster_backend.src.DTO;
 
 namespace CineMaster_backend.src.Entities;
 
@@ -19,21 +19,15 @@ public class User
   public string Surname { get; private set; }
   public UserRole Role { get; private set; }
 
-  public User(User user)
+  public User() { }
+
+  public User(CreateUserDto user)
   {
-    // var properties = GetType().GetProperties()
-    //         .Where(p => p.CanWrite); // только свойства, которые можно записать
-        
-    //     foreach (var prop in properties)
-    //     {
-    //         var value = prop.GetValue(user);
-    //         prop.SetValue(this, value);
-    //     }
     Login = user.Login;
     Password = user.Password;
     FirstName = user.FirstName;
     LastName = user.LastName;
     Surname = user.Surname;
-    Role = user.Role  ;
-  } 
+    Role = user.Role;
+  }
 }
