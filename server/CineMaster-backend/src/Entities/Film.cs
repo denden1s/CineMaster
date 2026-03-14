@@ -1,5 +1,6 @@
 namespace CineMaster_backend.src.Entities;
 
+// TODO: maybe some preview pictures or 1 picture
 public class Film
 {
   public int ID { get; private set; }
