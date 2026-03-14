@@ -1,4 +1,5 @@
 using CineMaster_backend.src.DTO;
+using CineMaster_backend.src.Utils;
 
 namespace CineMaster_backend.src.Entities;
 
@@ -26,8 +27,9 @@ public class User
 
   public User(CreateUserDto user)
   {
+    Encryption encryption = new Encryption();
     Login = user.Login;
-    Password = user.Password;
+    Password = encryption.Hash(user.Password);
     FirstName = user.FirstName;
     LastName = user.LastName;
     Surname = user.Surname;

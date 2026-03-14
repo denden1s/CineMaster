@@ -26,6 +26,7 @@
     <Folder Include="src/DTO/" />
     <Folder Include="src/Entities/" />
     <Folder Include="src/Services/" />
+    <Folder Include="src/Utils/" />
   </ItemGroup>
 
 </Project>
