@@ -29,22 +29,34 @@ public class ApplicationContext : DbContext
     modelBuilder.Entity<Ticket>().HasKey(t => t.ID);
     modelBuilder.Entity<User>().HasKey(u => u.ID);
 
+    modelBuilder.Entity<CinemaSession>()
+      .HasOne<User>(s => s.Admin)
+      .WithMany(u => u.Sessions)
+      .HasForeignKey(s => s.UserID);
 
-    // TODO: like this
-    // Set foreign keys
-    // modelBuilder.Entity<Log>()
-    //   .HasOne<User>(log => log.User)
-    //   .WithMany(user => user.Logs)
-    //   .HasForeignKey(log => log.User_ID);
+    modelBuilder.Entity<CinemaSession>()
+      .HasOne<CinemaHall>(s => s.Hall)
+      .WithMany(h => h.Sessions)
+      .HasForeignKey(s => s.CinemaHallID);
 
-    // modelBuilder.Entity<Price_list>()
-    //   .HasOne<Car_model>(price => price.Model)
-    //   .WithOne(model => model.Price)
-    //   .HasForeignKey<Price_list>(price => price.Model_ID);
+    modelBuilder.Entity<CinemaSession>()
+      .HasOne<Film>(s => s.ShowingFilm)
+      .WithMany(f => f.Sessions)
+      .HasForeignKey(s => s.FilmID);
 
-    // modelBuilder.Entity<Car>()
-    //   .HasOne<Car_model>(car => car.Model)
-    //   .WithMany(model => model.Cars)
-    //   .HasForeignKey(car => car.Model_ID);
+    modelBuilder.Entity<Ticket>()
+      .HasOne<CinemaSession>(t => t.Sessions)
+      .WithMany(s => s.Tickets)
+      .HasForeignKey(t => t.SessionID);
+
+    modelBuilder.Entity<Log>()
+      .HasOne<User>(l => l.User)
+      .WithMany(u => u.Logs)
+      .HasForeignKey(l => l.UserID);
+
+    modelBuilder.Entity<Film>()
+      .HasOne<Genre>(f => f.Genre)
+      .WithMany(g => g.Films)
+      .HasForeignKey(f => f.GenreID);
   }
 }

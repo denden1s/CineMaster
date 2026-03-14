@@ -6,6 +6,7 @@ public class Log
   public int UserID { get; private set; }
   public string Action { get; private set; }
   public DateTime ActionTime { get; private set; }
+  public User User { get; set; }
   
   public Log() {}
 

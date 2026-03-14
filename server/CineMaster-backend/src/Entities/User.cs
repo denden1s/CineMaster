@@ -18,7 +18,10 @@ public class User
   public string LastName { get; private set; }
   public string Surname { get; private set; }
   public UserRole Role { get; private set; }
-
+  public List<Log> Logs { get; private set; }
+  public List<Ticket> Tickets { get; private set; }
+  public List<CinemaSession> Sessions { get; private set; }
+  
   public User() { }
 
   public User(CreateUserDto user)

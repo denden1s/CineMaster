@@ -7,6 +7,8 @@ public class Film
   public string Name { get; private set; }
   public int Duration { get; private set; }
   public decimal Price { get; private set; }
+  public List<CinemaSession> Sessions { get; set; }
+  public Genre Genre { get; set; }
   
   public Film() {}
 

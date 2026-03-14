@@ -6,6 +6,7 @@ public class CinemaHall
   public string Name { get; private set; }
   public int Capacity { get; private set; }
   public int VIPScalingPercent { get; private set; }
+  public List<CinemaSession> Sessions { get; set; }
 
   public CinemaHall() {}
 
