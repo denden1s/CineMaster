@@ -12,6 +12,13 @@ public enum UserRole
 
 public class User
 {
+  private string SetPassword(string password, string salt)
+  {
+    Encryption encryption = new Encryption();
+    string data = password + salt; 
+    return encryption.Hash(data);
+  }
+
   public int ID { get; private set; }
   public string Login { get; private set; }
   public string Password { get; private set; }
@@ -24,15 +31,19 @@ public class User
   public List<CinemaSession> Sessions { get; private set; }
   
   public User() { }
-
   public User(CreateUserDto user)
   {
-    Encryption encryption = new Encryption();
     Login = user.Login;
-    Password = encryption.Hash(user.Password);
+    Password = SetPassword(user.Password, Login);
     FirstName = user.FirstName;
     LastName = user.LastName;
     Surname = user.Surname;
     Role = user.Role;
+  }
+
+  public User(AuthUserDto user)
+  {
+    Login = user.Login;
+    Password = SetPassword(user.Password, Login);
   }
 }

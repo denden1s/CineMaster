@@ -10,6 +10,22 @@ public class UserDto
   public string LastName { get; set; }
   public string Surname { get; set; }
   public UserRole Role { get; set; }
+
+  public UserDto(User user)
+  {
+    ID = user.ID;
+    Login = user.Login;
+    FirstName = user.FirstName;
+    LastName = user.LastName;
+    Surname = user.Surname;
+    Role = user.Role;
+  }
+}
+
+public class AuthUserDto
+{
+  public string Login { get; set; }
+  public string Password { get; set; }
 }
 
 public class CreateUserDto

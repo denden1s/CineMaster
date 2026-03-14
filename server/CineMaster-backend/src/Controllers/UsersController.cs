@@ -20,16 +20,33 @@ namespace CineMaster_backend.src.Controllers
 
     // POST: api/users
     [HttpPost]
+    [Route("api/users/create")]
     public IActionResult Create([FromBody] CreateUserDto createUserDto)
     {
       try
       {
         bool isCreated = _userService.Create(createUserDto);
-        // TODO:
-        // 201 Created + ссылка на GET + сам объект
-        //return CreatedAtAction(nameof(GetById), new { id = user?.ID }, true);
+        if (!isCreated)
+          throw new Exception("User not created");
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
+    }
 
-        return Ok(isCreated);
+    [HttpPost]
+    [Route("api/users/auth")]
+    public IActionResult Auth([FromBody] AuthUserDto authUserDto)
+    {
+      try
+      {
+        UserDto ?user = _userService.Get(authUserDto);
+        if (user == null)
+          return NotFound();
+
+        return Ok(user);
       }
       catch (Exception ex)
       {
