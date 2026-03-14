@@ -46,4 +46,15 @@ public class User
     Login = user.Login;
     Password = SetPassword(user.Password, Login);
   }
+
+  public User(string login, string password, string name, string lastName,
+              string surname, UserRole role)
+  {
+    Login = login;
+    Password = SetPassword(password, Login);
+    FirstName = name;
+    LastName = lastName;
+    Surname = surname;
+    Role = role;
+  }
 }
