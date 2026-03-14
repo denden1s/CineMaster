@@ -47,7 +47,8 @@ public class ApplicationContext : DbContext
     modelBuilder.Entity<Ticket>()
       .HasOne<CinemaSession>(t => t.Sessions)
       .WithMany(s => s.Tickets)
-      .HasForeignKey(t => t.SessionID);
+      .HasForeignKey(t => t.SessionID)
+      .OnDelete(DeleteBehavior.NoAction);
 
     modelBuilder.Entity<Log>()
       .HasOne<User>(l => l.User)
