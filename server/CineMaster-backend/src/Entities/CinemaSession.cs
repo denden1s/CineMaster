@@ -2,7 +2,6 @@ namespace CineMaster_backend.src.Entities;
 
 public class CinemaSession
 {
-  
   public int ID { get; private set; }
   public int UserID { get; private set; }
   public User Admin { get; set; }
