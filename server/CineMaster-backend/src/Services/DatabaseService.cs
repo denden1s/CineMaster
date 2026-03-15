@@ -58,7 +58,7 @@ public class DatabaseService
     int userRoleCount = users.Count(u => u.Role == UserRole.kUser);
     int adminRoleCount = users.Count(u => u.Role == UserRole.kAdmin);
     int analystRoleCount = users.Count(u => u.Role == UserRole.kAnalyst);
-    _db.AddRange(users);
+    _db.User.AddRange(users);
     _db.SaveChanges();
   }
 
@@ -98,7 +98,7 @@ public class DatabaseService
     {
       dbGenres.Add(new Genre(genre));
     }
-    _db.AddRange(dbGenres);
+    _db.Genre.AddRange(dbGenres);
     _db.SaveChanges();
   }
 
@@ -143,6 +143,66 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+  private void GenerateFilms()
+  {
+    List<Genre> genres = _db.Genre.ToList();
+    if (genres.Count() == 0)
+      return;
+
+    List<Film> films = new List<Film>();
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("фантастика")).Single().ID,
+      "Интерстеллар",
+      169,
+      15
+    ));
+    
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("драма")).Single().ID,
+      "Побег из Шоушенка",
+      142,
+      13
+    ));
+
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("драма")).Single().ID,
+      "1+1",
+      112,
+      10
+    ));
+
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("криминал")).Single().ID,
+      "Джентльмены",
+      113,
+      12
+    ));
+
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("триллер")).Single().ID,
+      "Остров проклятых",
+      138,
+      15
+    ));
+
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("драма")).Single().ID,
+      "Зеленая миля",
+      189,
+      17
+    ));
+
+    films.Add(new Film(
+      genres.Where(g => g.Name.Equals("фантастика")).Single().ID,
+      "Терминатор 2: Судный день",
+      137,
+      11
+    ));
+
+    _db.Film.AddRange(films);
+    _db.SaveChanges();
+  }
+
   public DatabaseService(ApplicationContext db)
   {
     _db = db;
@@ -153,5 +213,6 @@ public class DatabaseService
     GenerateUsers();
     GenerateGenres();
     GenerateCinemaHalls();
+    GenerateFilms();
   }
 }
