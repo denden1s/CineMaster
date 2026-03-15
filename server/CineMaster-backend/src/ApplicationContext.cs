@@ -5,7 +5,7 @@ namespace CineMaster_backend.src;
 
 public class ApplicationContext : DbContext
 {
-  public DbSet<CinemaSession> CinemaHall { get; set; }
+  public DbSet<CinemaHall> CinemaHall { get; set; }
   public DbSet<CinemaSession> CinemaSession { get; set; }
   public DbSet<Film> Film { get; set; }
   public DbSet<Genre> Genre { get; set; }

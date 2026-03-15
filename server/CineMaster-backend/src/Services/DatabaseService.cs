@@ -102,6 +102,47 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+  private void GenerateCinemaHalls()
+  {
+    string baseHallTemplate = "Кинозал №";
+    string vipHallTemplate = "Кинозал повышенного комфорта №";
+    string superVipHallTemplate = "VIP кинозал №";
+    Random rnd = new Random();
+    int baseHallCount = rnd.Next(1, 10);
+    int vipHallCount = rnd.Next(1, 10);
+    int superVipHallCount = rnd.Next(1, 10);
+
+    List<CinemaHall> halls = new List<CinemaHall>();
+    for(int i = 1; i < baseHallCount + 1; i++)
+    {
+      halls.Add(new CinemaHall(
+        baseHallTemplate + Convert.ToString(i),
+        rnd.Next(30, 100),
+        rnd.Next(10, 100)
+      ));
+    }
+
+    for(int i = 1; i < vipHallCount + 1; i++)
+    {
+       halls.Add(new CinemaHall(
+        vipHallTemplate + Convert.ToString(i),
+        rnd.Next(20, 50),
+        rnd.Next(30, 60)
+      ));
+    }
+
+    for(int i = 1; i < superVipHallCount + 1; i++)
+    {
+       halls.Add(new CinemaHall(
+        superVipHallTemplate + Convert.ToString(i),
+        rnd.Next(10, 30),
+        rnd.Next(50, 100)
+      ));
+    }
+    _db.CinemaHall.AddRange(halls);
+    _db.SaveChanges();
+  }
+
   public DatabaseService(ApplicationContext db)
   {
     _db = db;
@@ -111,6 +152,6 @@ public class DatabaseService
   {
     GenerateUsers();
     GenerateGenres();
-    
+    GenerateCinemaHalls();
   }
 }
