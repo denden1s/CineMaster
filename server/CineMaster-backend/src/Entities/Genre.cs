@@ -6,4 +6,9 @@ public class Genre
   public string Name { get; private set; }
   public List<Film> Films { get; set; }
   public Genre() {}
+
+  public Genre(string name)
+  {
+    Name = name;
+  }
 }

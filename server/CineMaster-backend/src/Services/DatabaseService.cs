@@ -62,6 +62,46 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+  private void GenerateGenres()
+  {
+    List<string> genres =
+    [
+      "биографический",
+      "боевик",
+      "вестерн",
+      "военный",
+      "детектив",
+      "детский",
+      "документальный",
+      "драма",
+      "исторический",
+      "кинокомикс",
+      "комедия",
+      "короткометражный",
+      "криминал",
+      "мелодрама",
+      "мистика",
+      "мультфильм",
+      "мюзикл",
+      "научный",
+      "нуар",
+      "приключения",
+      "семейный",
+      "спорт",
+      "триллер",
+      "ужасы",
+      "фантастика",
+      "фэнтези",
+    ];
+    List<Genre> dbGenres = new List<Genre>();
+    foreach(var genre in genres)
+    {
+      dbGenres.Add(new Genre(genre));
+    }
+    _db.AddRange(dbGenres);
+    _db.SaveChanges();
+  }
+
   public DatabaseService(ApplicationContext db)
   {
     _db = db;
@@ -70,5 +110,7 @@ public class DatabaseService
   public void Generate()
   {
     GenerateUsers();
+    GenerateGenres();
+    
   }
 }
