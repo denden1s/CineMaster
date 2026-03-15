@@ -6,7 +6,7 @@ namespace CineMaster_backend.src.Services;
 public class DatabaseService
 {
   private ApplicationContext _db; // TODO: test when 2 entities use ApplicationContext how sync data between it 
-
+  private const string kPassword = "CineMaster";
   private void GenerateUsers()
   {
     List<string> names =
@@ -208,11 +208,16 @@ public class DatabaseService
     _db = db;
   }
 
-  public void Generate()
+  public bool Generate(string password)
   {
+    if (!kPassword.Equals(password))
+      return false;
+
     GenerateUsers();
     GenerateGenres();
     GenerateCinemaHalls();
     GenerateFilms();
+
+    return true;
   }
 }
