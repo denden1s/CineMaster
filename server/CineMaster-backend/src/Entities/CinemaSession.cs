@@ -14,12 +14,15 @@ public class CinemaSession
 
   public CinemaSession() {}
 
-  public CinemaSession(int userID, int filmID, int cinemaHallID,
+  public CinemaSession(User user, Film film, CinemaHall cinemaHall,
                        DateTime showingTime)
   {
-    UserID = userID;
-    FilmID = filmID;
-    CinemaHallID = cinemaHallID;
+    UserID = user.ID;
+    Admin = user;
+    FilmID = film.ID;
+    ShowingFilm = film;
+    CinemaHallID = cinemaHall.ID;
+    Hall = cinemaHall;
     ShowingTime = showingTime;
   }
 }
