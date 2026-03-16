@@ -265,6 +265,18 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+
+  private void Clear()
+  {
+    _db.User.RemoveRange(_db.User);
+    _db.Genre.RemoveRange(_db.Genre);
+    _db.Ticket.RemoveRange(_db.Ticket);
+    _db.CinemaSession.RemoveRange(_db.CinemaSession);
+    _db.CinemaHall.RemoveRange(_db.CinemaHall);
+    _db.Film.RemoveRange(_db.Film);
+    _db.Log.RemoveRange(_db.Log);
+    _db.SaveChanges();
+  }
   public DatabaseService(ApplicationContext db)
   {
     _db = db;
@@ -275,6 +287,7 @@ public class DatabaseService
     if (!kPassword.Equals(password))
       return false;
 
+    Clear();
     GenerateUsers();
     GenerateGenres();
     GenerateCinemaHalls();
