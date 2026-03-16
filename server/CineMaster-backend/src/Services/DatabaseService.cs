@@ -203,6 +203,48 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+  private void GenerateCinemaSessions()
+  {
+    if(_db.Film.Count() * _db.User.Count() * _db.CinemaHall.Count() == 0)
+      return;
+    
+    List<CinemaSession> sessions = new List<CinemaSession>();
+    List<int> usersID = _db.User.Where(u => u.Role == UserRole.kUser)
+                                .Select(u => u.ID).ToList();
+
+    List<int> hallsID = _db.CinemaHall.Select(h => h.ID).ToList();
+
+    List<int> filmsID = _db.Film.Select(f => f.ID).ToList();
+    Random rnd = new Random();
+    int dayCounter = 1;
+    DateTime date = DateTime.Today.AddDays(dayCounter++).AddHours(10);
+    int userID = 0;
+    int hallID = 0;
+    foreach(var film in filmsID)
+    {
+      userID = rnd.Next(0, usersID.Count());
+      hallID = rnd.Next(0, hallsID.Count());
+      sessions.Add(new CinemaSession(
+        usersID[userID], 
+        film,
+        hallsID[hallID],
+        date
+        ));
+        if (date.Hour >= 20)
+          date = DateTime.Today.AddDays(dayCounter++).AddHours(10);
+        else
+        {
+          int filmDuration = _db.Film.Where(f => f.ID == film)
+                                     .Select(f => f.Duration).First();
+
+          date.AddMinutes(filmDuration + 30);
+        }
+    }
+
+    _db.CinemaSession.AddRange(sessions);
+    _db.SaveChanges();
+  }
+
   public DatabaseService(ApplicationContext db)
   {
     _db = db;
@@ -217,7 +259,7 @@ public class DatabaseService
     GenerateGenres();
     GenerateCinemaHalls();
     GenerateFilms();
-
+    GenerateCinemaSessions();
     return true;
   }
 }

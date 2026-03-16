@@ -25,4 +25,13 @@ public class CinemaSession
     Hall = cinemaHall;
     ShowingTime = showingTime;
   }
+
+  public CinemaSession(int userID, int filmID, int cinemaHallID,
+                       DateTime showingTime)
+  {
+    UserID = userID;
+    FilmID = filmID;
+    CinemaHallID = cinemaHallID;
+    ShowingTime = showingTime;
+  }
 }
