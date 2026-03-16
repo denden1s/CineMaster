@@ -11,7 +11,6 @@ public class CinemaSessionService
     _db = db;
   }
 
-// TODO: all services need log and store it in Log table
   public bool CreateSession(DateTime showingTime,
                             Film film,
                             CinemaHall hall,
@@ -32,9 +31,13 @@ public class CinemaSessionService
       return false;
 
     // One user can lead more than one session in moment, no problem
-
-    _db.CinemaSession.Add(new CinemaSession(user, film, hall, showingTime));
+    CinemaSession sesion = new CinemaSession(user, film, hall, showingTime);
+    _db.CinemaSession.Add(sesion);
     _db.SaveChanges();
+
+   string action = $"Created session {sesion.ID} showing time: {showingTime.ToUniversalTime()}, film: {film.Name}, user: {user.LastName + " " + user.FirstName + " " + user.Surname}, cinema hall: {hall.Name}";
+
+    _db.Log.Add(new Log(user, action));
     return true;
   }
 
@@ -59,6 +62,11 @@ public class CinemaSessionService
     
     Ticket ticket = new Ticket(session.ID, session.UserID, sitNumber);
     _db.Ticket.Add(ticket);
+    _db.SaveChanges();
+    User user = _db.User.Where(u => u.ID == session.UserID).Single();
+    string film = _db.Film.Where(f => f.ID == session.FilmID).Select(f => f.Name).Single();
+    string action = $"Sell ticket {ticket.ID}, user: {user.LastName + " " + user.FirstName + " " + user.Surname}, session: {session.ID}, film: {film}";
+    _db.Log.Add(new Log(user, action));
     _db.SaveChanges();
     return ticket.ID; // TODO: need verify that
   }

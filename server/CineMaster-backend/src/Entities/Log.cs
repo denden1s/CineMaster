@@ -5,10 +5,16 @@ public class Log
   public int ID { get; private set; }
   public int UserID { get; private set; }
   public string Action { get; private set; }
-  public DateTime ActionTime { get; private set; }
+  public DateTime ActionTime { get; private set; } = DateTime.Now;
   public User User { get; set; }
   
   public Log() {}
+
+  public Log(User user, string action)
+  {
+    UserID = user.ID;
+    Action = action;
+  }
 
   public Log(int userID, string action)
   {
