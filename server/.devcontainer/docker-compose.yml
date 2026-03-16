@@ -8,6 +8,7 @@ services:
 
     volumes:
       - ../..:/workspaces:cached
+    working_dir: /workspaces/server/CineMaster-backend
     command: /workspaces/server/CineMaster-backend/bin/Debug/net10.0/CineMaster-backend
     # network_mode: service:db
     ports: 

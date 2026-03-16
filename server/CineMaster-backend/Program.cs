@@ -27,4 +27,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    // Это создаст базу данных и применит все миграции, если их нет
+    context.Database.Migrate(); 
+}
+
 app.Run();
