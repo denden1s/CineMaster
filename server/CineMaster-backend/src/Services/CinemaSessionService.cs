@@ -1,3 +1,4 @@
+using CineMaster_backend.Migrations;
 using CineMaster_backend.src.Entities;
 
 namespace CineMaster_backend.src.Services;
@@ -36,5 +37,26 @@ public class CinemaSessionService
     _db.CinemaSession.Add(new CinemaSession(user, film, hall, showingTime));
     _db.SaveChanges();
     return true;
+  }
+
+  public int SellTicket(int sessionID, int sitNumber)
+  {
+    int default_ret = -1;
+
+    CinemaSession ?session = _db.CinemaSession.Where(s => s.ID == sessionID).FirstOrDefault();
+
+    if (session == null || DateTime.Now > session.ShowingTime)
+      return default_ret;
+     
+    if (session.Hall.Capacity <= _db.Ticket.Count(t => t.SessionID == session.ID))
+      return default_ret;
+
+    if (_db.Ticket.Any(t => t.SessionID == session.ID && t.SitNumber == sitNumber))
+      return default_ret;
+    
+    Ticket ticket = new Ticket(session.ID, session.UserID, sitNumber);
+    _db.Ticket.Add(ticket);
+    _db.SaveChanges();
+    return ticket.ID; // TODO: need verify that
   }
 }
