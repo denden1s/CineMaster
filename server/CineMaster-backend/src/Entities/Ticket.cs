@@ -17,4 +17,11 @@ public class Ticket
     UserID = userID;
     SitNumber = sitNumber;
   }
+
+  public Ticket(CinemaSession session, int sitNumber)
+  {
+    SessionID = session.ID;
+    UserID = session.UserID;
+    SitNumber = sitNumber;
+  }
 }

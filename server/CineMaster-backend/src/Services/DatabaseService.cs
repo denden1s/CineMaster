@@ -245,6 +245,26 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+  private void SellTickets()
+  {
+    List<Ticket> tickets = new List<Ticket>();
+    List<CinemaSession> sessions = _db.CinemaSession.ToList();
+    Random rnd = new Random();
+    int hallCapacity = 0;
+    foreach (var session in sessions)
+    {
+      hallCapacity = _db.CinemaHall.Where(h => h.ID == session.CinemaHallID)
+                                   .Select(h => h.Capacity).Single();
+      int ticketsToSell = rnd.Next(1, hallCapacity);
+      for (int i = 1; i <= ticketsToSell; i++)
+      {
+        tickets.Add(new Ticket(session, i));
+      }
+    }
+    _db.Ticket.AddRange(tickets);
+    _db.SaveChanges();
+  }
+
   public DatabaseService(ApplicationContext db)
   {
     _db = db;
@@ -260,6 +280,7 @@ public class DatabaseService
     GenerateCinemaHalls();
     GenerateFilms();
     GenerateCinemaSessions();
+    SellTickets();
     return true;
   }
 }
