@@ -11,6 +11,7 @@ public class CinemaSessionService
     _db = db;
   }
 
+  // TODO: put into controller
   public bool CreateSession(DateTime showingTime,
                             Film film,
                             CinemaHall hall,
@@ -69,5 +70,10 @@ public class CinemaSessionService
     _db.Log.Add(new Log(user, action));
     _db.SaveChanges();
     return ticket.ID; // TODO: need verify that
+  }
+
+  public List<CinemaSession> Get()
+  {
+    return _db.CinemaSession.ToList();
   }
 }
