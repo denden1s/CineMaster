@@ -1,19 +1,17 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="CineMaster_frontend.Views.LoginWindow"
-        Title="CineMaster — Вход"
-        Width="420" Height="300"
+        Title="CineMaster"
+        Width="420" Height="220"
         CanResize="False">
   <StackPanel Margin="20" Spacing="10">
-    <TextBlock Text="Вход" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-
-    <TextBlock Text="Логин"/>
+    <TextBlock Text="Логин" HorizontalAlignment="Center"/>
     <TextBox x:Name="LoginBox" Watermark="Введите логин"/>
 
-    <TextBlock Text="Пароль"/>
+    <TextBlock Text="Пароль" HorizontalAlignment="Center"/>
     <TextBox x:Name="PasswordBox" Watermark="Введите пароль" PasswordChar="●"/>
 
-    <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Stretch" Click="LoginButton_Click"/>
+    <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="LoginButton_Click"/>
 
     <TextBlock x:Name="StatusText" Foreground="Red" TextWrapping="Wrap"/>
   </StackPanel>
