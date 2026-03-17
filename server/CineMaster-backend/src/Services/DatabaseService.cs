@@ -237,7 +237,7 @@ public class DatabaseService
           int filmDuration = _db.Film.Where(f => f.ID == film)
                                      .Select(f => f.Duration).First();
 
-          date.AddMinutes(filmDuration + 30);
+          date = date.AddMinutes(filmDuration + 30);
         }
     }
 
