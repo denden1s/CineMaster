@@ -18,7 +18,7 @@ namespace CineMaster_backend.src.Controllers
     }
 
     [HttpPost]
-    [Route("api/db/generate")]
+    [Route("generate")]
     public IActionResult Generate([FromBody] string password)
     {
       try

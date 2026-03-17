@@ -20,7 +20,7 @@ namespace CineMaster_backend.src.Controllers
 
     // POST: api/users
     [HttpPost]
-    [Route("api/users/create")]
+    [Route("create")]
     public IActionResult Create([FromBody] CreateUserDto createUserDto)
     {
       try
@@ -37,7 +37,7 @@ namespace CineMaster_backend.src.Controllers
     }
 
     [HttpPost]
-    [Route("api/users/auth")]
+    [Route("auth")]
     public IActionResult Auth([FromBody] AuthUserDto authUserDto)
     {
       try

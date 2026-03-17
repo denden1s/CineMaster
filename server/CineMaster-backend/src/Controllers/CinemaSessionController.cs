@@ -27,7 +27,7 @@ namespace CineMaster_backend.src.Controllers
     }
 
     [HttpPost]
-    [Route("api/session/ticket")]
+    [Route("ticket")]
     public IActionResult SellTicket([FromBody] int sessionID, int sitNumber)
     {
       try
