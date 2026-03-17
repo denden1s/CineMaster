@@ -44,7 +44,7 @@ public class User
   public User(AuthUserDto user)
   {
     Login = user.Login;
-    Password = SetPassword(user.Password, Login);
+    Password = user.Password;
   }
 
   public User(string login, string password, string name, string lastName,
