@@ -32,7 +32,6 @@ public partial class TicketSaleWindow : Window
     {
         InitializeComponent();
         _apiClient = apiClient;
-        SelectedSeatsText.Text = "-";
         LoadSessions();
     }
 
@@ -67,10 +66,9 @@ public partial class TicketSaleWindow : Window
     public void SetSelectedSeats(List<int> seats)
     {
         _selectedSeats = seats.ToList();
-        SelectedSeatsText.Text = _selectedSeats.Count == 0 ? "-" : string.Join(", ", _selectedSeats);
 
         if (_selectedSeats.Count > 0)
-            SeatNumber.Value = _selectedSeats.First();
+            SeatNumber.Text = Convert.ToString(_selectedSeats.First());
     }
 
     private async void SellButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -83,7 +81,7 @@ public partial class TicketSaleWindow : Window
             return;
         }
 
-        var seatsToSell = _selectedSeats.Count > 0 ? _selectedSeats : new List<int> { (int)SeatNumber.Value };
+        var seatsToSell = _selectedSeats.Count > 0 ? _selectedSeats : new List<int> { Convert.ToInt32(SeatNumber.Text) };
         var sold = new List<int>();
         var failed = new List<int>();
 
@@ -101,7 +99,7 @@ public partial class TicketSaleWindow : Window
             if (sold.Count > 0)
             {
                 StatusText.Foreground = Avalonia.Media.Brushes.Green;
-                StatusText.Text = $"Проданы места: {string.Join(", ", sold)}.";
+                StatusText.Text = $"Продано место: {string.Join(", ", sold)}.";
             }
 
             if (failed.Count > 0)
@@ -112,7 +110,6 @@ public partial class TicketSaleWindow : Window
 
             // reset selection after sale
             _selectedSeats.Clear();
-            SelectedSeatsText.Text = "-";
         }
         catch (Exception ex)
         {

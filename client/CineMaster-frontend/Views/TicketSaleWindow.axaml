@@ -21,11 +21,9 @@
 
     <StackPanel Orientation="Horizontal" Spacing="10">
       <TextBlock Text="Номер места:" VerticalAlignment="Center"/>
-      <NumericUpDown Name="SeatNumber" Minimum="1" Maximum="200" Width="100"/>
+      <TextBox Name="SeatNumber" Width="150"/>
     </StackPanel>
 
-    <TextBlock Text="Выбранные места:"/>
-    <TextBlock Name="SelectedSeatsText" FontWeight="Bold"/>
 
     <Button Name="SellButton" Content="Продать" HorizontalAlignment="Right" Width="120" Click="SellButton_Click"/>
     <TextBlock Name="StatusText" TextWrapping="Wrap" Foreground="Green"/>
