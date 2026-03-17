@@ -1,4 +1,6 @@
+using CineMaster_backend.src.DTO;
 using CineMaster_backend.src.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CineMaster_backend.src.Services;
 
@@ -42,12 +44,12 @@ public class CinemaSessionService
     return true;
   }
 
-  public int SellTicket(int sessionID, int sitNumber)
+  public int SellTicket(TicketDto ticketDto)
   {
     int default_ret = -1;
 
     CinemaSession ?session = _db.CinemaSession.Where(
-        s => s.ID == sessionID).FirstOrDefault();
+        s => s.ID == ticketDto.SessionID).Include(s => s.Hall).FirstOrDefault();
 
     if (session == null || DateTime.Now > session.ShowingTime)
       return default_ret;
@@ -58,10 +60,10 @@ public class CinemaSessionService
       return default_ret;
 
     if (_db.Ticket.Any(t => t.SessionID == session.ID && 
-                       t.SitNumber == sitNumber))
+                       t.SitNumber == ticketDto.SitNumber))
       return default_ret;
     
-    Ticket ticket = new Ticket(session.ID, session.UserID, sitNumber);
+    Ticket ticket = new Ticket(session.ID, session.UserID, ticketDto.SitNumber);
     _db.Ticket.Add(ticket);
     _db.SaveChanges();
     User user = _db.User.Where(u => u.ID == session.UserID).Single();
@@ -72,8 +74,38 @@ public class CinemaSessionService
     return ticket.ID; // TODO: need verify that
   }
 
-  public List<CinemaSession> Get()
+  public List<CinemaSessionDto> Get()
   {
-    return _db.CinemaSession.ToList();
+    return _db.CinemaSession
+      .Include(s => s.ShowingFilm)
+      .Include(s => s.Hall)
+      .Include(s => s.Tickets)
+      .Select(s => new CinemaSessionDto(
+        s,
+        soldSeats: s.Tickets.Count,
+        remainingSeats: (s.Hall != null ? s.Hall.Capacity : 0) - s.Tickets.Count
+      ))
+      .ToList();
+  }
+
+  public SessionSeatDto GetSessionSeatInfo(int sessionId)
+  {
+    var session = _db.CinemaSession
+      .Include(s => s.Hall)
+      .FirstOrDefault(s => s.ID == sessionId);
+
+    if (session == null)
+      return null;
+
+    var soldSeats = _db.Ticket
+      .Where(t => t.SessionID == sessionId)
+      .Select(t => t.SitNumber)
+      .ToList();
+
+    return new SessionSeatDto(
+      sessionId,
+      session.Hall?.Capacity ?? 0,
+      soldSeats
+    );
   }
 }

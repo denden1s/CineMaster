@@ -1,3 +1,4 @@
+using CineMaster_backend.src.DTO;
 using CineMaster_backend.src.Entities;
 using CineMaster_backend.src.Services;
 using Microsoft.AspNetCore.Http;
@@ -22,17 +23,28 @@ namespace CineMaster_backend.src.Controllers
     [HttpGet]
     public IActionResult GetSessions()
     {
-      List<CinemaSession> sessions = _sessionService.Get();
+      List<CinemaSessionDto> sessions = _sessionService.Get();
       return Ok(sessions);
+    }
+
+    // GET: api/sessions/{id}/seats
+    [HttpGet("{id}/seats")]
+    public IActionResult GetSeats(int id)
+    {
+      var seats = _sessionService.GetSessionSeatInfo(id);
+      if (seats == null)
+        return NotFound();
+
+      return Ok(seats);
     }
 
     [HttpPost]
     [Route("ticket")]
-    public IActionResult SellTicket([FromBody] int sessionID, int sitNumber)
+    public IActionResult SellTicket([FromBody] TicketDto ticket)
     {
       try
       {
-        int isSold = _sessionService.SellTicket(sessionID, sitNumber);
+        int isSold = _sessionService.SellTicket(ticket);
         if (isSold == -1)
           throw new Exception("Ticket not created");
         return Ok(isSold);
