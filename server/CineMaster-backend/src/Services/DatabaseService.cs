@@ -153,6 +153,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("фантастика")).Single().ID,
       "Интерстеллар",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/635d7f90-a68b-4010-8825-3eb972c897ac/3840x",
       169,
       15
     ));
@@ -160,6 +161,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("драма")).Single().ID,
       "Побег из Шоушенка",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/2fbb9b8d-4f86-45fb-b42c-8c7b0e7ac7a5/3840x",
       142,
       13
     ));
@@ -167,6 +169,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("драма")).Single().ID,
       "1+1",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1898899/4c78b2e3-ffed-4985-bbc2-642952c92f5e/orig",
       112,
       10
     ));
@@ -174,6 +177,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("криминал")).Single().ID,
       "Джентльмены",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/b0818ad5-daeb-420b-a37a-66186d209788/3840x",
       113,
       12
     ));
@@ -181,6 +185,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("триллер")).Single().ID,
       "Остров проклятых",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/5a65e52e-05e4-48db-a8d8-1c7da810c38c/3840x",
       138,
       15
     ));
@@ -188,6 +193,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("драма")).Single().ID,
       "Зеленая миля",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/acb932eb-c7d0-42de-92df-f5f306c4c48e/3840x",
       189,
       17
     ));
@@ -195,6 +201,7 @@ public class DatabaseService
     films.Add(new Film(
       genres.Where(g => g.Name.Equals("фантастика")).Single().ID,
       "Терминатор 2: Судный день",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/10893610/2dd14742-f241-42ca-9db4-331e3a483c50/3840x",
       137,
       11
     ));

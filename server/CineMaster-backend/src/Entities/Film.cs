@@ -7,17 +7,23 @@ public class Film
   public int GenreID { get; private set; }
   public string Name { get; private set; }
   public int Duration { get; private set; }
+  public string ImageUrl { get; private set; }
   public decimal Price { get; private set; }
   public List<CinemaSession> Sessions { get; set; }
   public Genre Genre { get; set; }
   
   public Film() {}
 
-  public Film(int genreID, string name, int duration, decimal price)
+  public Film(int genreID,
+              string name,
+              string imageUrl,
+              int duration,
+              decimal price)
   {
     GenreID = genreID;
     Name = name;
     Duration = duration;
     Price = price;
+    ImageUrl = imageUrl;
   }
 }

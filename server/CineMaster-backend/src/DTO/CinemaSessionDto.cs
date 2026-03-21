@@ -7,6 +7,7 @@ public class CinemaSessionDto
   public int ID { get; set; }
   public DateTime ShowingTime { get; set; }
   public string FilmName { get; set; }
+  public string ImageUrl { get; set; }
   public string HallName { get; set; }
   public int UserID { get; set; }
   public int SoldSeats { get; set; }
@@ -23,6 +24,7 @@ public class CinemaSessionDto
     UserID = session.UserID;
     SoldSeats = soldSeats;
     RemainingSeats = remainingSeats;
+    ImageUrl = session.ShowingFilm?.ImageUrl ?? string.Empty;
   }
 }
 
