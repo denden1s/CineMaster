@@ -25,7 +25,10 @@
     </StackPanel>
 
 
-    <Button Name="SellButton" Content="Продать" HorizontalAlignment="Right" Width="120" Click="SellButton_Click"/>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+      <Button Name="SellButton" Content="Продать" Width="110" Click="SellButton_Click"/>
+      <Button Name="SellAndPrintQrButton" Content="Продать+QR" Width="110" Click="SellAndPrintQrButton_Click"/>
+    </StackPanel>
     <TextBlock Name="StatusText" TextWrapping="Wrap" Foreground="Green"/>
   </StackPanel>
 </Window>

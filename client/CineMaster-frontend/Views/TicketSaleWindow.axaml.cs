@@ -82,39 +82,87 @@ public partial class TicketSaleWindow : Window
         }
 
         var seatsToSell = _selectedSeats.Count > 0 ? _selectedSeats : new List<int> { Convert.ToInt32(SeatNumber.Text) };
-        var sold = new List<int>();
-        var failed = new List<int>();
 
-        try
+        var (soldWithIds, failed) = await SellTickets(option, seatsToSell);
+
+        var sold = soldWithIds.Keys.ToList();
+
+        if (sold.Count > 0)
         {
-            foreach (var seat in seatsToSell.OrderBy(x => x))
-            {
-                var ok = await _apiClient.SellTicketAsync(option.Session.ID, seat);
-                if (ok)
-                    sold.Add(seat);
-                else
-                    failed.Add(seat);
-            }
-
-            if (sold.Count > 0)
-            {
-                StatusText.Foreground = Avalonia.Media.Brushes.Green;
-                StatusText.Text = $"Продано место: {string.Join(", ", sold)}.";
-            }
-
-            if (failed.Count > 0)
-            {
-                StatusText.Foreground = Avalonia.Media.Brushes.Red;
-                StatusText.Text += $" Не удалось продать: {string.Join(", ", failed)}.";
-            }
-
-            // reset selection after sale
-            _selectedSeats.Clear();
+            StatusText.Foreground = Avalonia.Media.Brushes.Green;
+            StatusText.Text = $"Продано место: {string.Join(", ", sold)}.";
         }
-        catch (Exception ex)
+
+        if (failed.Count > 0)
         {
             StatusText.Foreground = Avalonia.Media.Brushes.Red;
-            StatusText.Text = "Ошибка: " + ex.Message;
+            StatusText.Text += $" Не удалось продать: {string.Join(", ", failed)}.";
         }
+
+        _selectedSeats.Clear();
     }
+
+private async Task<(Dictionary<int, string> soldWithIds, List<int> failed)> SellTickets(SessionOption option, List<int> seatsToSell)
+{
+    var soldWithIds = new Dictionary<int, string>();
+    var failed = new List<int>();
+
+    foreach (var seat in seatsToSell.OrderBy(x => x))
+    {
+        var ticketId = await _apiClient.SellTicketAsync(option.Session.ID, seat);
+        if (!string.IsNullOrEmpty(ticketId))
+            soldWithIds[seat] = ticketId;
+        else
+            failed.Add(seat);
+    }
+
+    return (soldWithIds, failed);
+}
+
+private async void SellAndPrintQrButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+{
+    StatusText.Text = "";
+    if (SessionCombo.SelectedItem is not SessionOption option)
+    {
+        StatusText.Foreground = Avalonia.Media.Brushes.Red;
+        StatusText.Text = "Выберите сеанс.";
+        return;
+    }
+
+    var seatsToSell = _selectedSeats.Count > 0 ? _selectedSeats : new List<int> { Convert.ToInt32(SeatNumber.Text) };
+
+    var (soldWithIds, failed) = await SellTickets(option, seatsToSell);
+
+    if (soldWithIds.Count > 0)
+    {
+        var qrData = new TicketQrData
+        {
+            TicketId = string.Join(",", soldWithIds.Values),
+            SessionId = option.Session.ID,
+            FilmName = option.Session.FilmName,
+            ShowingTime = option.Session.ShowingTime,
+            HallName = option.Session.HallName,
+            Seats = soldWithIds.Keys.ToArray()
+        };
+
+        var qrWindow = new TicketQrWindow(qrData);
+        qrWindow.Show();
+    }
+
+    var sold = soldWithIds.Keys.ToList();
+
+    if (sold.Count > 0)
+    {
+        StatusText.Foreground = Avalonia.Media.Brushes.Green;
+        StatusText.Text = $"Продано место: {string.Join(", ", sold)}.";
+    }
+
+    if (failed.Count > 0)
+    {
+        StatusText.Foreground = Avalonia.Media.Brushes.Red;
+        StatusText.Text += $" Не удалось продать: {string.Join(", ", failed)}.";
+    }
+
+    _selectedSeats.Clear();
+}
 }

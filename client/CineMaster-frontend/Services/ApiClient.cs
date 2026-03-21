@@ -43,14 +43,23 @@ public class ApiClient : IDisposable
     }
 
     // TODO: show ticket number like qr code for printing
-    public async Task<bool> SellTicketAsync(int sessionId, int seatNumber, CancellationToken cancellationToken = default)
+    public async Task<string?> SellTicketAsync(int sessionId, int seatNumber, CancellationToken cancellationToken = default)
     {
         var ticket = new { SessionID = sessionId, SitNumber = seatNumber };
         using var response = await _http.PostAsJsonAsync("api/CinemaSession/ticket", ticket, cancellationToken);
-        var result = response.IsSuccessStatusCode;
-        if (result)
-            TicketSold?.Invoke(sessionId);
-        return result;
+        if (response.IsSuccessStatusCode)
+        {
+            var ticketData = await response.Content.ReadAsStringAsync();
+            if (ticketData != null)
+                TicketSold?.Invoke(sessionId);
+            return ticketData;
+        }
+        return null;
+    }
+
+    private class TicketResponse
+    {
+        public string Id { get; set; } = string.Empty;
     }
 
     public async Task<SessionSeatInfoDto?> GetSessionSeatInfoAsync(int sessionId, CancellationToken cancellationToken = default)
