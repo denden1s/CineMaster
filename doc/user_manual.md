@@ -1,0 +1,1 @@
+# TODO: write manual for app usage with screenshots and put it into f1 shortcut

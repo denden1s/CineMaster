@@ -2,10 +2,9 @@ using CineMaster_backend.src.Entities;
 
 namespace CineMaster_backend.src.Services;
 
-// TODO: for generate data
 public class DatabaseService
 {
-  private ApplicationContext _db; // TODO: test when 2 entities use ApplicationContext how sync data between it 
+  private ApplicationContext _db;
   private const string kPassword = "CineMaster";
   private void GenerateUsers()
   {
@@ -143,6 +142,7 @@ public class DatabaseService
     _db.SaveChanges();
   }
 
+// TODO: add image link from kinopoisk.ru
   private void GenerateFilms()
   {
     List<Genre> genres = _db.Genre.ToList();

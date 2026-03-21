@@ -42,6 +42,7 @@ public class ApiClient : IDisposable
                ?? new List<CinemaSessionDto>();
     }
 
+    // TODO: show ticket number like qr code for printing
     public async Task<bool> SellTicketAsync(int sessionId, int seatNumber, CancellationToken cancellationToken = default)
     {
         var ticket = new { SessionID = sessionId, SitNumber = seatNumber };

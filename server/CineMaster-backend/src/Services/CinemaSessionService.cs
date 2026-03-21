@@ -71,7 +71,7 @@ public class CinemaSessionService
     string action = $"Sell ticket {ticket.ID}, user: {user.LastName + " " + user.FirstName + " " + user.Surname}, session: {session.ID}, film: {film}";
     _db.Log.Add(new Log(user, action));
     _db.SaveChanges();
-    return ticket.ID; // TODO: need verify that
+    return ticket.ID;
   }
 
   public List<CinemaSessionDto> Get()
