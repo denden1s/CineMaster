@@ -4,12 +4,14 @@ using CineMaster_frontend.Models;
 using QRCoder;
 using System;
 using System.IO;
-using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Encodings.Web;
+using Avalonia.Input;
+using System.Diagnostics;
 
 namespace CineMaster_frontend.Views;
 
-public partial class TicketQrWindow : Window
+public partial class TicketQrWindow : BaseWindow
 {
     private byte[]? _qrPng;
     private TicketQrData? _data;

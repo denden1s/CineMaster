@@ -6,10 +6,11 @@ using CineMaster_frontend.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Diagnostics;
+using System.IO;
 namespace CineMaster_frontend.Views;
 
-public partial class SeatMapWindow : Window
+public partial class SeatMapWindow : BaseWindow
 {
     private readonly ApiClient _apiClient;
     private readonly int _sessionId;

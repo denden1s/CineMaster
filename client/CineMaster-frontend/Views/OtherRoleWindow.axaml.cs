@@ -1,8 +1,10 @@
 using Avalonia.Controls;
-
+using Avalonia.Input;
+using System.Diagnostics;
+using System.IO;
 namespace CineMaster_frontend.Views;
 
-public partial class OtherRoleWindow : Window
+public partial class OtherRoleWindow : BaseWindow
 {
     public OtherRoleWindow()
     {
@@ -13,6 +15,15 @@ public partial class OtherRoleWindow : Window
     public OtherRoleWindow(string roleName) : this()
     {
         MessageText.Text = $"Ваша роль: {roleName}. Для кассира доступны окна с фильмами и продажей билетов.";
+    }
+
+    private void OpenHelp()
+    {
+        string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "help.pdf");
+        if (File.Exists(pdfPath))
+        {
+            Process.Start(new ProcessStartInfo(pdfPath) { UseShellExecute = true });
+        }
     }
 
     private void CloseButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

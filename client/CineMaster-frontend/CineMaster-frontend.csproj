@@ -18,9 +18,13 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="QRCoder" Version="1.4.4" />
+    <PackageReference Include="System.Reactive" Version="6.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="serverConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -2,10 +2,12 @@ using Avalonia.Controls;
 using CineMaster_frontend.Models;
 using CineMaster_frontend.Services;
 using System;
-
+using Avalonia.Input;
+using System.Diagnostics;
+using System.IO;
 namespace CineMaster_frontend.Views;
 
-public partial class LoginWindow : Window
+public partial class LoginWindow : BaseWindow
 {
     private readonly ApiClient _apiClient;
     private TextBox _loginBox = null!;

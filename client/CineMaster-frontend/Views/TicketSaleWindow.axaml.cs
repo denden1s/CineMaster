@@ -5,10 +5,12 @@ using CineMaster_frontend.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Avalonia.Input;
+using System.Diagnostics;
+using System.IO;
 namespace CineMaster_frontend.Views;
 
-public partial class TicketSaleWindow : Window
+public partial class TicketSaleWindow : BaseWindow
 {
     private readonly ApiClient _apiClient;
     private List<SessionOption> _options = new();
@@ -33,6 +35,15 @@ public partial class TicketSaleWindow : Window
         InitializeComponent();
         _apiClient = apiClient;
         LoadSessions();
+    }
+
+    private void OpenHelp()
+    {
+        string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "help.pdf");
+        if (File.Exists(pdfPath))
+        {
+            Process.Start(new ProcessStartInfo(pdfPath) { UseShellExecute = true });
+        }
     }
 
     private async void LoadSessions()
