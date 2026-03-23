@@ -1,1 +1,22 @@
-# TODO: write manual for app usage with screenshots and put it into f1 shortcut
+# Состав программного комплекса
+
+TODO: сервер и клиент
+клиент подключается на основании файла serverConfig.json 
+Сервер это HTTP-сервер + база данных в докере
+
+## Клиенский модуль CineMaster-frontend
+### Окно авторизации
+
+TODO:
+
+### Окно продажи билетов
+
+TODO:
+
+### Окно киноафиши
+
+TODO:
+
+### Окно выбора мест
+
+TODO:
