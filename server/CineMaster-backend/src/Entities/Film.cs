@@ -1,6 +1,5 @@
 namespace CineMaster_backend.src.Entities;
 
-// TODO: add image link from kinopoisk.ru + create migration
 public class Film
 {
   public int ID { get; private set; }

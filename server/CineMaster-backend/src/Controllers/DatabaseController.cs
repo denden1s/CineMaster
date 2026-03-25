@@ -1,5 +1,4 @@
 using CineMaster_backend.src.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CineMaster_backend.src.Controllers
