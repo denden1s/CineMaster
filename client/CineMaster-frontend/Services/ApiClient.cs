@@ -1,4 +1,3 @@
-using System.Net.Http.Json;
 using System.Text.Json;
 using CineMaster_frontend.Models;
 
@@ -55,11 +54,6 @@ public class ApiClient : IDisposable
             return ticketData;
         }
         return null;
-    }
-
-    private class TicketResponse
-    {
-        public string Id { get; set; } = string.Empty;
     }
 
     public async Task<SessionSeatInfoDto?> GetSessionSeatInfoAsync(int sessionId, CancellationToken cancellationToken = default)

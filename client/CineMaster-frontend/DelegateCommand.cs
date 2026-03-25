@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Input;
 
 namespace CineMaster_frontend

@@ -1,23 +1,13 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Collections;
 using CineMaster_frontend.Models;
 using CineMaster_frontend.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Avalonia.Input;
-using System.Diagnostics;
-using System.IO;
 namespace CineMaster_frontend.Views;
 
 public partial class MoviesWindow : BaseWindow
 {
     private readonly ApiClient _apiClient;
     private readonly TicketSaleWindow _ticketSaleWindow;
-
-    public MoviesWindow() : this(new ApiClient(ServerConfig.LoadFromFile().BaseUrl), new TicketSaleWindow()) { }
 
     public MoviesWindow(ApiClient apiClient, TicketSaleWindow ticketSaleWindow)
     {

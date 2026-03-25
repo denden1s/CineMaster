@@ -1,13 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
-using CineMaster_frontend.Models;
 using QRCoder;
-using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Encodings.Web;
-using Avalonia.Input;
-using System.Diagnostics;
 
 namespace CineMaster_frontend.Views;
 
@@ -47,16 +43,17 @@ public partial class TicketQrWindow : BaseWindow
             $"ID билета: {data.TicketId}";
     }
 
-    private async void SavePng_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void SavePng_Click(object? sender,
+                                     Avalonia.Interactivity.RoutedEventArgs e)
     {
         var dlg = new SaveFileDialog
         {
-            Filters = new System.Collections.Generic.List<FileDialogFilter>
+            Filters = new List<FileDialogFilter>
             {
                 new FileDialogFilter
                 {
                     Name = "PNG",
-                    Extensions = new System.Collections.Generic.List<string> { "png" }
+                    Extensions = new List<string> { "png" }
                 }
             },
             DefaultExtension = "png",
@@ -70,7 +67,8 @@ public partial class TicketQrWindow : BaseWindow
         }
     }
 
-    private void Close_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void Close_Click(object? sender,
+                             Avalonia.Interactivity.RoutedEventArgs e)
     {
         Close();
     }

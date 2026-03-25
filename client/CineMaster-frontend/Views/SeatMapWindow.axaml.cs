@@ -1,13 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
-using CineMaster_frontend.Models;
 using CineMaster_frontend.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Diagnostics;
-using System.IO;
 namespace CineMaster_frontend.Views;
 
 public partial class SeatMapWindow : BaseWindow
@@ -23,13 +16,6 @@ public partial class SeatMapWindow : BaseWindow
     /// Callback invoked when the window closes with the selected seats.
     /// </summary>
     public Action<List<int>>? SeatsSelectedCallback { get; set; }
-
-    // Parameterless constructor is required for the XAML runtime and designer
-    public SeatMapWindow()
-    {
-        InitializeComponent();
-        this.Closing += SeatMapWindow_Closing;
-    }
 
     public SeatMapWindow(ApiClient apiClient, int sessionId, string filmName, DateTime showTime)
     {
@@ -49,7 +35,7 @@ public partial class SeatMapWindow : BaseWindow
 
     public List<int> SelectedSeats => _selectedSeats.OrderBy(x => x).ToList();
 
-    private void SeatMapWindow_Closing(object? sender, Avalonia.Controls.WindowClosingEventArgs e)
+    private void SeatMapWindow_Closing(object? sender, WindowClosingEventArgs e)
     {
         SendResult();
         ApiClient.TicketSold -= OnTicketSold;
@@ -78,7 +64,6 @@ public partial class SeatMapWindow : BaseWindow
         StatusText.Text = "";
         _selectedSeats.Clear();
         _sentResult = false;
-        // SelectedSeatText.Text = "-";
 
         try
         {
@@ -157,20 +142,7 @@ public partial class SeatMapWindow : BaseWindow
         else
             _selectedSeats.Add(seat);
 
-        UpdateSelectionDisplay();
         UpdateSeatButtonStyles();
-    }
-
-    private void UpdateSelectionDisplay()
-    {
-        // if (_selectedSeats.Count == 0)
-        // {
-        //     SelectedSeatText.Text = "-";
-        // }
-        // else
-        // {
-        //     SelectedSeatText.Text = string.Join(", ", _selectedSeats.OrderBy(x => x));
-        // }
     }
 
     private void UpdateSeatButtonStyles()
